@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALL IN ONE TATA PLAY</title>
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
+
+    <style>
+        /* Add loading screen styles */
+
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #333;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            z-index: 9999;
+        }
+
+        #loading-msg {
+            margin-bottom: 10px;
+        }
+
+        #loading-bar-container {
+            width: 80%;
+            background-color: #555;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        #loading-bar {
+            height: 20px;
+            width: 0;
+            background-color: #3498db;
+            transition: width 0.3s ease-in-out;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #333;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #222;
+            color: #ffffff;
+            padding: 1em 0;
+            box-sizing: border-box;
+            font-size: 2em;
+            border-bottom: 2px solid #444;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        nav {
+            margin-bottom: 20px;
+            text-align: center;
+            /* Center-align the text in the navigation */
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #3498db;
+            border-radius: 20px;
+            /* Add border-radius to the dropdown */
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.3s ease;
+            text-align-last: center;
+            /* Center-align text within the select element */
+        }
+
+        select:hover,
+        select:focus {
+            border-color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .site-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            /* Adjusted grid size */
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .site-card {
+            background-color: #444;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+            text-decoration: none;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            max-width: 150px;
+            /* Set a maximum width for the site card */
+            margin: auto;
+            /* Center the site card within its container */
+        }
+
+        .site-card:hover {
+            transform: scale(1.05);
+        }
+
+        .site-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-bottom: 1px solid #333;
+        }
+
+        .site-info {
+            padding: 10px;
+            /* Reduce padding for the site info */
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .site-info h2 {
+            font-size: 0.9em;
+            /* Adjust the font size for the channel name (h2) */
+            margin: 0;
+        }
+
+        .site-link {
+            margin-top: 10px;
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #3498db;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .site-link:hover {
+            background-color: #2c3e50;
+            color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .github-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .github-button:hover {
+            background-color: #45a049;
+        }
+
+        .github-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .telegram-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+            background-color: #0088cc;
+            /* Use the color you prefer for Telegram */
+            border-radius: 5px;
+            margin-left: 10px;
+            /* Adjust the margin as needed */
+            transition: background-color 0.3s ease;
+        }
+
+        .telegram-button:hover {
+            background-color: #006699;
+            /* Adjust the hover color as needed */
+        }
+
+        .telegram-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        /* Modern Search Bar Styles */
+
+        .search-bar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 70%;
+            /* Adjusted width for better visibility on small screens */
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            /* Add border-radius for a curved end */
+        }
+
+        #channel-search {
+            padding: 10px;
+            border: none;
+            /* Remove border to create a seamless appearance */
+            border-radius: 20px;
+            /* Match the border-radius of the container */
+            width: 70%;
+            /* Adjusted width for better visibility on small screens */
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #channel-search:focus {
+            outline: none;
+            background-color: #eee;
+            /* Change background color when focused */
+        }
+
+        #search-btn {
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            /* Add border-radius to the search button */
+            padding: 10px 20px;
+            /* Add padding to the search button */
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #search-btn:hover {
+            background-color: #2c3e50;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #search-icon {
+            font-size: 20px;
+            color: #3498db;
+            transition: color 0.3s ease;
+        }
+
+        /* Media Query for Small Screens */
+
+        @media only screen and (max-width: 600px) {
+            .site-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            #channel-search {
+                width: 60%;
+                /* Adjusted width for small screens */
+            }
+            #search-btn {
+                width: 30%;
+                /* Adjusted width for small screens */
+            }
+            #search-bar {
+                align-items: stretch;
+                /* Align items vertically to stretch the search bar */
+            }
+            #channel-search {
+                width: 60%;
+                /* Make the input full width */
+                margin-bottom: 0;
+                /* Remove margin at the bottom */
+            }
+        }
+    </style>
+</head>
+	<script type='text/javascript' src='//eltontry.com/09/f1/e9/09f1e956c711aea6a898d5abbb78d092.js'></script>
+
+<body>
+    <!-- Loading screen with progress bar and message -->
+    <div id="loading-screen">
+        <div id="loading-msg">Loading, please wait...</div>
+        <div id="loading-bar-container">
+            <div id="loading-bar"></div>
+        </div>
+    </div>
+    <header>
+        <h1>ALL IN ONE TATA PLAY</h1>
+        <a href="https://t.me/allinonereborn" class="telegram-button" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/KratosRepo/picx-images-hosting@master/20240104/Telegram_logo.svg.4prhaum59ki0.webp" alt="Telegram" class="telegram-icon">
+          Join us on Telegram
+      </a>
+    </header>
+
+    <div class="container">
+
+        <nav>
+            <label for="channel-dropdown">Change Channel Group:</label>
+            <select id="channel-dropdown" onchange="changeChannelGroup()">
+
+                <option value="entertainment">entertainment</option>
+                <option value="movies">movies</option>
+                <option value="music">music</option>
+                <option value="news">news</option>
+                <option value="english news">english news</option>  
+                <option value="kids">kids</option>
+                <option value="knowledge">knowledge</option>
+                <option value="lifestyle">lifestyle</option>
+                <option value="regional bengali">regional bengali</option>
+                <option value="regional gujarati">regional gujarati</option>
+                <option value="regional hindi">regional hindi</option>
+                <option value="regional kannada">regional kannada</option>
+                <option value="regional malayalam">regional malayalam</option>
+                <option value="regional marathi">regional marathi</option>
+                <option value="regional odia">regional odia</option>
+                <option value="regional others">regional others</option>
+                <option value="regional punjabi">regional punjabi</option>
+                <option value="regional tamil">regional tamil</option>
+                <option value="regional telugu">regional telugu</option>
+                <option value="shopping">shopping</option>
+                <option value="spiritual">spiritual</option>
+                <option value="null">others</option>
+                <option value="sports">sports</option>
+
+            </select>
+        </nav>
+
+        <div id="search-bar">
+            <input type="text" id="channel-search" oninput="searchChannels()" placeholder="Enter channel name...">
+            <button id="search-btn" onclick="searchChannels()">Search</button>
+        </div>
+
+        <div class="site-grid" id="regional tamil-channels">
+
+            <a href="player.html?channel=T%20News" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-12020-j9ntf12w-v1/imageContent-12020-j9ntf12w-m1.png"T%20News.webp" alt="T News">
+                    <div class="site-info">
+                        <h2>T News</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Sun%20TV%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11960-j9lu9vow-v1/imageContent-11960-j9lu9vow-m1.png"Sun%20TV%20HD.webp" alt="Sun TV HD">
+                    <div class="site-info">
+                        <h2>Sun TV HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Sun%20Life" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11837-j9kzms9s-v2/imageContent-11837-j9kzms9s-m3.png"Sun%20Life.webp" alt="Sun Life">
+                    <div class="site-info">
+                        <h2>Sun Life</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Star%20Vijay%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11909-j9l52epk-v2/imageContent-11909-j9l52epk-m4.png"Star%20Vijay%20HD.webp" alt="Star Vijay HD">
+                    <div class="site-info">
+                        <h2>Star Vijay HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Zee%20Tamil" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11997-j9lux9ig-v1/imageContent-11997-j9lux9ig-m5.png"Zee%20Tamil.webp" alt="Zee Tamil">
+                    <div class="site-info">
+                        <h2>Zee Tamil</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Zee%20Tamil%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11997-j9lux9ig-v1/imageContent-11997-j9lux9ig-m5.png"Zee%20Tamil%20HD.webp" alt="Zee Tamil HD">
+                    <div class="site-info">
+                        <h2>Zee Tamil HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Colors%20Tamil%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-33814-jo5jba9s-v3/imageContent-33814-jo5jba9s-m3.PNG"Colors%20Tamil%20HD.webp" alt="Colors Tamil HD">
+                    <div class="site-info">
+                        <h2>Colors Tamil HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Colors%20Tamil" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-33814-jo5jba9s-v3/imageContent-33814-jo5jba9s-m3.PNG"Colors%20Tamil.webp" alt="Colors Tamil">
+                    <div class="site-info">
+                        <h2>Colors Tamil</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Kalaignar%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-819-j5m8fsfs-v1/imageContent-819-j5m8fsfs-m1.png"Kalaignar%20TV.webp" alt="Kalaignar TV">
+                    <div class="site-info">
+                        <h2>Kalaignar TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Raj%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11700-j9ksbotk-v1/imageContent-11700-j9ksbotk-m1.png"Raj%20TV.webp" alt="Raj TV">
+                    <div class="site-info">
+                        <h2>Raj TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Raj%20Digital%20Plus" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11679-j9khnqag-v1/imageContent-11679-j9khnqag-m1.png"Raj%20Digital%20Plus.webp" alt="Raj Digital Plus">
+                    <div class="site-info">
+                        <h2>Raj Digital Plus</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=D%20Tamil" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-44904-jzu8ri4o-v1/imageContent-44904-jzu8ri4o-m1.png"D%20Tamil.webp" alt="D Tamil">
+                    <div class="site-info">
+                        <h2>D Tamil</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Mega%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-111-j5fl5xo8-v1/imageContent-111-j5fl5xo8-m1.png"Mega%20TV.webp" alt="Mega TV">
+                    <div class="site-info">
+                        <h2>Mega TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Tamil%20Naaptol" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-41267-jwjjvrt4-v5/imageContent-41267-jwjjvrt4-m7.png"Tamil%20Naaptol.webp" alt="Tamil Naaptol">
+                    <div class="site-info">
+                        <h2>Tamil Naaptol</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Sirippoli" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-12244-j9qq7k1c-v1/imageContent-12244-j9qq7k1c-m1.png"Sirippoli.webp" alt="Sirippoli">
+                    <div class="site-info">
+                        <h2>Sirippoli</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Vasanth%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11900-j9l4vygg-v1/imageContent-11900-j9l4vygg-m1.png"Vasanth%20TV.webp" alt="Vasanth TV">
+                    <div class="site-info">
+                        <h2>Vasanth TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Polimer%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11188-j9i480zc-v1/imageContent-11188-j9i480zc-m1.png"Polimer%20TV.webp" alt="Polimer TV">
+                    <div class="site-info">
+                        <h2>Polimer TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Makkal%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11565-j9jv0np4-v1/imageContent-11565-j9jv0np4-m1.png"Makkal%20TV.webp" alt="Makkal TV">
+                    <div class="site-info">
+                        <h2>Makkal TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Peppers%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11667-j9kdkb6w-v1/imageContent-11667-j9kdkb6w-m1.png"Peppers%20TV.webp" alt="Peppers TV">
+                    <div class="site-info">
+                        <h2>Peppers TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Vendhar%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-31187-jldgeg1k-v2/imageContent-31187-jldgeg1k-m2.png"Vendhar%20TV.webp" alt="Vendhar TV">
+                    <div class="site-info">
+                        <h2>Vendhar TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=KTV%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11536-j9jty5w8-v1/imageContent-11536-j9jty5w8-m1.png
+          "KTV%20HD.webp" alt="KTV HD">
+                    <div class="site-info">
+                        <h2>KTV HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=J%20Movies" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-816-j5m8dqd4-v1/imageContent-816-j5m8dqd4-m1.png"J%20Movies.webp" alt="J Movies">
+                    <div class="site-info">
+                        <h2>J Movies</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Zee%20Thirai" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-49016-k5lx1za0-v2/imageContent-49016-k5lx1za0-m2.png"Zee%20Thirai.webp" alt="Zee Thirai">
+                    <div class="site-info">
+                        <h2>Zee Thirai</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Travelxp%20Tamil" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11724-j9kvwnkg-v1/imageContent-11724-j9kvwnkg-m1.png"Travelxp%20Tamil.webp" alt="Travelxp Tamil">
+                    <div class="site-info">
+                        <h2>Travelxp Tamil</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Puthiya%20Thalaimurai" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-882-j5mdrg4o-v1/imageContent-882-j5mdrg4o-m1.png"Puthiya%20Thalaimurai.webp" alt="Puthiya Thalaimurai">
+                    <div class="site-info">
+                        <h2>Puthiya Thalaimurai</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Thanthi%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11966-j9luich4-v1/imageContent-11966-j9luich4-m1.png"Thanthi%20TV.webp" alt="Thanthi TV">
+                    <div class="site-info">
+                        <h2>Thanthi TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Jaya%20Plus" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-810-j5m84h14-v1/imageContent-810-j5m84h14-m1.png"Jaya%20Plus.webp" alt="Jaya Plus">
+                    <div class="site-info">
+                        <h2>Jaya Plus</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Polimer%20News" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11942-j9lthi34-v1/imageContent-11942-j9lthi34-m1.png"Polimer%20News.webp" alt="Polimer News">
+                    <div class="site-info">
+                        <h2>Polimer News</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=News18%20Tamil%20Nadu" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-192-j5fsr3s0-v1/imageContent-192-j5fsr3s0-m1.png"News18%20Tamil%20Nadu.webp" alt="News18 Tamil Nadu">
+                    <div class="site-info">
+                        <h2>News18 Tamil Nadu</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Raj%20News%20Tamil" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-12002-j9nrtf08-v2/imageContent-12002-j9nrtf08-m2.png"Raj%20News%20Tamil.webp" alt="Raj News Tamil">
+                    <div class="site-info">
+                        <h2>Raj News Tamil</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Seithigal%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-126-j5fnf4ig-v2/imageContent-126-j5fnf4ig-m2.png"Seithigal%20TV.webp" alt="Seithigal TV">
+                    <div class="site-info">
+                        <h2>Seithigal TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Sathiyam%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11764-j9kwqj6o-v1/imageContent-11764-j9kwqj6o-m1.png"Sathiyam%20TV.webp" alt="Sathiyam TV">
+                    <div class="site-info">
+                        <h2>Sathiyam TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=MalaiMurasu%20Seithigal" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/MAMUR_Thumbnail-v2/MAMUR_Thumbnail.png"MalaiMurasu%20Seithigal.webp" alt="MalaiMurasu Seithigal">
+                    <div class="site-info">
+                        <h2>MalaiMurasu Seithigal</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=News%20Tamil%2024x7" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-69018-kzo65wi0-v1/imageContent-69018-kzo65wi0-m2.png"News%20Tamil%2024x7.webp" alt="News Tamil 24x7">
+                    <div class="site-info">
+                        <h2>News Tamil 24x7</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=News%20J" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-37207-jswmhmpk-v1/imageContent-37207-jswmhmpk-m1.PNG"News%20J.webp" alt="News J">
+                    <div class="site-info">
+                        <h2>News J</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=DD%20Podhigai" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11369-j9jpvzjs-v1/imageContent-11369-j9jpvzjs-m1.png"DD%20Podhigai.webp" alt="DD Podhigai">
+                    <div class="site-info">
+                        <h2>DD Podhigai</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Raj%20Musix" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11682-j9khxjoo-v1/imageContent-11682-j9khxjoo-m1.png"Raj%20Musix.webp" alt="Raj Musix">
+                    <div class="site-info">
+                        <h2>Raj Musix</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Isaiaruvi" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-24578-jgotgry0-v1/imageContent-24578-jgotgry0-m1.png"Isaiaruvi.webp" alt="Isaiaruvi">
+                    <div class="site-info">
+                        <h2>Isaiaruvi</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Murasu%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11616-j9k04eo0-v1/imageContent-11616-j9k04eo0-m1.png"Murasu%20TV.webp" alt="Murasu TV">
+                    <div class="site-info">
+                        <h2>Murasu TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Mega%20Musiq" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11583-j9jype8w-v3/imageContent-11583-j9jype8w-m3.png"Mega%20Musiq.webp" alt="Mega Musiq">
+                    <div class="site-info">
+                        <h2>Mega Musiq</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Jothi%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11712-j9kt9fbs-v2/imageContent-11712-j9kt9fbs-m2.png"Jothi%20TV.webp" alt="Jothi TV">
+                    <div class="site-info">
+                        <h2>Jothi TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Madha%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11562-j9juzmns-v1/imageContent-11562-j9juzmns-m1.png"Madha%20TV.webp" alt="Madha TV">
+                    <div class="site-info">
+                        <h2>Madha TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Angel%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11230-j9icx1i0-v1/imageContent-11230-j9icx1i0-m1.png"Angel%20TV.webp" alt="Angel TV">
+                    <div class="site-info">
+                        <h2>Angel TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Nambikkai%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11622-j9k0845k-v2/imageContent-11622-j9k0845k-m2.png"Nambikkai%20TV.webp" alt="Nambikkai TV">
+                    <div class="site-info">
+                        <h2>Nambikkai TV</h2>
+                    </div>
+                </a>
+
+        </div>
+        <div class="site-grid" id="kids-channels">
+
+            <a href="player.html?channel=Super%20Hungama" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-35365-jr3xz4uo-v5/imageContent-35365-jr3xz4uo-m6.png"Super%20Hungama.webp" alt="Super Hungama">
+                    <div class="site-info">
+                        <h2>Super Hungama</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Disney" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-1356-j5tdnwmw-v1/imageContent-1356-j5tdnwmw-m1.png"Disney.webp" alt="Disney">
+                    <div class="site-info">
+                        <h2>Disney</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Nick%20HD%2B" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11658-j9k5lvgo-v1/imageContent-11658-j9k5lvgo-m1.png"Nick%20HD%2B.webp" alt="Nick HD+">
+                    <div class="site-info">
+                        <h2>Nick HD+</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Nick" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11658-j9k5lvgo-v1/imageContent-11658-j9k5lvgo-m1.png"Nick.webp" alt="Nick">
+                    <div class="site-info">
+                        <h2>Nick</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Tata%20Play%20Fun%20Learn%20Preschool" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-13094-jbdzlsfs-v2/imageContent-13094-jbdzlsfs-m2.png"Tata%20Play%20Fun%20Learn%20Preschool.webp" alt="Tata Play Fun Learn Preschool">
+                    <div class="site-info">
+                        <h2>Tata Play Fun Learn Preschool</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Tata%20Play%20Fun%20Learn%20Junior" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-13097-jbdzn9og-v2/imageContent-13097-jbdzn9og-m2.png"Tata%20Play%20Fun%20Learn%20Junior.webp" alt="Tata Play Fun Learn Junior">
+                    <div class="site-info">
+                        <h2>Tata Play Fun Learn Junior</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Cartoon%20Network%20HD%2B" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-34164-jok06xoo-v1/imageContent-34164-jok06xoo-m1.png"Cartoon%20Network%20HD%2B.webp" alt="Cartoon Network HD+">
+                    <div class="site-info">
+                        <h2>Cartoon Network HD+</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Cartoon%20Network" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-34164-jok06xoo-v1/imageContent-34164-jok06xoo-m1.png"Cartoon%20Network.webp" alt="Cartoon Network">
+                    <div class="site-info">
+                        <h2>Cartoon Network</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Pogo" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-2694-j638bugw-v1/imageContent-2694-j638bugw-m1.png"Pogo.webp" alt="Pogo">
+                    <div class="site-info">
+                        <h2>Pogo</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Discovery%20Kids" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-24724-jgvwokqw-v1/imageContent-24724-jgvwokqw-m1.png"Discovery%20Kids.webp" alt="Discovery Kids">
+                    <div class="site-info">
+                        <h2>Discovery Kids</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=SONY%20YAY%21" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-132-j5fpedbs-v4/imageContent-132-j5fpedbs-m6.png"SONY%20YAY%21.webp" alt="SONY YAY!">
+                    <div class="site-info">
+                        <h2>SONY YAY!</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Sonic%20Nickelodeon" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-8018-j7a7n1a8-v1/imageContent-8018-j7a7n1a8-m1.png"Sonic%20Nickelodeon.webp" alt="Sonic Nickelodeon">
+                    <div class="site-info">
+                        <h2>Sonic Nickelodeon</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Nick%20Jr" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-390-j5jpps1s-v1/imageContent-390-j5jpps1s-m1.png"Nick%20Jr.webp" alt="Nick Jr">
+                    <div class="site-info">
+                        <h2>Nick Jr</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=ETV%20Bal%20Bharat" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-62236-kny7yzaw-v1/imageContent-62236-kny7yzaw-m1.png"ETV%20Bal%20Bharat.webp" alt="ETV Bal Bharat">
+                    <div class="site-info">
+                        <h2>ETV Bal Bharat</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Disney%20Junior" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-35368-jr3xz7xs-v1/imageContent-35368-jr3xz7xs-m1.png"Disney%20Junior.webp" alt="Disney Junior">
+                    <div class="site-info">
+                        <h2>Disney Junior</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=CBeeBies" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-52868-k9af4lxs-v1/imageContent-52868-k9af4lxs-m1.png"CBeeBies.webp" alt="CBeeBies">
+                    <div class="site-info">
+                        <h2>CBeeBies</h2>
+                    </div>
+                </a>
+
+        </div>
+        
+
+
+
+<div class="site-grid" id="sports-channels">
+
+            <a href="player.html?channel=DD%20Sports" class="site-card">
+                    <img src="http://tataplay-8ad.pages.dev/logo/DD%20Sports.webp" alt="DD Sports">
+                    <div class="site-info">
+                        <h2>DD Sports</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Star%20Sports%201%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-8301-j7hc0820-v1/imageContent-8301-j7hc0820-m1.png" alt="Star Sports 1 HD">
+                    <div class="site-info">
+                        <h2>Star Sports 1 HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Star%20Sports%202%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-1021-j5nj3c68-v1/imageContent-1021-j5nj3c68-m1.png" alt="Star Sports 2 HD">
+                    <div class="site-info">
+                        <h2>Star Sports 2 HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Star%20Sports%201%20Hindi%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-60-j5fdr6a0-v1/imageContent-60-j5fdr6a0-m1.png" alt="Star Sports 1 Hindi HD">
+                    <div class="site-info">
+                        <h2>Star Sports 1 Hindi HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Star%20Sports%20Select%201%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-7891-j75vq7k0-v1/imageContent-7891-j75vq7k0-m1.PNG" alt="Star Sports Select 1 HD">
+                    <div class="site-info">
+                        <h2>Star Sports Select 1 HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Star%20Sports%20Select%202%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11791-j9kyqpy8-v1/imageContent-11791-j9kyqpy8-m1.png" alt="Star Sports Select 2 HD">
+                    <div class="site-info">
+                        <h2>Star Sports Select 2 HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=SONY%20SPORTS%20TEN%201%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-261-j5fz9bvk-v4/imageContent-261-j5fz9bvk-m4.png" alt="SONY SPORTS TEN 1 HD">
+                    <div class="site-info">
+                        <h2>SONY SPORTS TEN 1 HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=SONY%20SPORTS%20TEN%201" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-261-j5fz9bvk-v4/imageContent-261-j5fz9bvk-m4.png" alt="SONY SPORTS TEN 1">
+                    <div class="site-info">
+                        <h2>SONY SPORTS TEN 1</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=SONY%20SPORTS%20TEN%202%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11784-j9kylfd4-v2/imageContent-11784-j9kylfd4-m3.png" alt="SONY SPORTS TEN 2 HD">
+                    <div class="site-info">
+                        <h2>SONY SPORTS TEN 2 HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=SONY%20SPORTS%20TEN%202" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11784-j9kylfd4-v2/imageContent-11784-j9kylfd4-m3.png" alt="SONY SPORTS TEN 2">
+                    <div class="site-info">
+                        <h2>SONY SPORTS TEN 2</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=SONY%20SPORTS%20TEN%203%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11787-j9kynnm0-v3/imageContent-11787-j9kynnm0-m3.png" alt="SONY SPORTS TEN 3 HD">
+                    <div class="site-info">
+                        <h2>SONY SPORTS TEN 3 HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=SONY%20SPORTS%20TEN%203" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11787-j9kynnm0-v3/imageContent-11787-j9kynnm0-m3.png" alt="SONY SPORTS TEN 3">
+                    <div class="site-info">
+                        <h2>SONY SPORTS TEN 3</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=SONY%20SPORTS%20TEN%205%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-108-j5fl5wwg-v3/imageContent-108-j5fl5wwg-m3.png" alt="SONY SPORTS TEN 5 HD">
+                    <div class="site-info">
+                        <h2>SONY SPORTS TEN 5 HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Sports%2018%20-%201%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-74232-la6z41u8-v3/imageContent-74232-la6z41u8-m5.png" alt="Sports 18 - 1 HD">
+                    <div class="site-info">
+                        <h2>Sports 18 - 1 HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Sports%2018%20-%201" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-74232-la6z41u8-v3/imageContent-74232-la6z41u8-m5.png" alt="Sports 18 - 1">
+                    <div class="site-info">
+                        <h2>Sports 18 - 1</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Eurosport%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-52842-k980h8vc-v1/imageContent-52842-k980h8vc-m2.png" alt="Eurosport HD">
+                    <div class="site-info">
+                        <h2>Eurosport HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Eurosport" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-52842-k980h8vc-v1/imageContent-52842-k980h8vc-m2.png" alt="Eurosport">
+                    <div class="site-info">
+                        <h2>Eurosport</h2>
+                    </div>
+                </a>
+
+        </div>
+
+
+
+
+
+
+
+<div class="site-grid" id="knowledge-channels">
+
+            <a href="player.html?channel=DD%20Kisan" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11350-j9jpk8pk-v1/imageContent-11350-j9jpk8pk-m1.png"DD%20Kisan.webp" alt="DD Kisan">
+                    <div class="site-info">
+                        <h2>DD Kisan</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Tata%20Play%20Seniors" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-47647-k2lbp2q8-v2/imageContent-47647-k2lbp2q8-m2.png"Tata%20Play%20Seniors.webp" alt="Tata Play Seniors">
+                    <div class="site-info">
+                        <h2>Tata Play Seniors</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Tata%20Play%20JEE%20Prep" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-64069-kra2o75k-v2/imageContent-64069-kra2o75k-m2.png"Tata%20Play%20JEE%20Prep.webp" alt="Tata Play JEE Prep">
+                    <div class="site-info">
+                        <h2>Tata Play JEE Prep</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Tata%20Play%20NEET%20Prep" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-64066-kra2j2qo-v2/imageContent-64066-kra2j2qo-m2.png"Tata%20Play%20NEET%20Prep.webp" alt="Tata Play NEET Prep">
+                    <div class="site-info">
+                        <h2>Tata Play NEET Prep</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Tata%20Play%20English%20in%20Hindi" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-25721-jia4i70o-v2/imageContent-25721-jia4i70o-m3.PNG"Tata%20Play%20English%20in%20Hindi.webp" alt="Tata Play English in Hindi">
+                    <div class="site-info">
+                        <h2>Tata Play English in Hindi</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Tata%20Play%20Smart%20Manager" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-352-j5jmrkqw-v2/imageContent-352-j5jmrkqw-m2.png"Tata%20Play%20Smart%20Manager.webp" alt="Tata Play Smart Manager">
+                    <div class="site-info">
+                        <h2>Tata Play Smart Manager</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Tata%20Play%20Vedic%20Maths" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-703-j5l1wgco-v2/imageContent-703-j5l1wgco-m2.png"Tata%20Play%20Vedic%20Maths.webp" alt="Tata Play Vedic Maths">
+                    <div class="site-info">
+                        <h2>Tata Play Vedic Maths</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=National%20Geographic%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-12234-j9qoqc54-v1/imageContent-12234-j9qoqc54-m1.png"National%20Geographic%20HD.webp" alt="National Geographic HD">
+                    <div class="site-info">
+                        <h2>National Geographic HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=National%20Geographic" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-12234-j9qoqc54-v1/imageContent-12234-j9qoqc54-m1.png"National%20Geographic.webp" alt="National Geographic">
+                    <div class="site-info">
+                        <h2>National Geographic</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Nat%20Geo%20Wild%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11631-j9k0ndjc-v1/imageContent-11631-j9k0ndjc-m1.png"Nat%20Geo%20Wild%20HD.webp" alt="Nat Geo Wild HD">
+                    <div class="site-info">
+                        <h2>Nat Geo Wild HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Nat%20Geo%20Wild" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11631-j9k0ndjc-v1/imageContent-11631-j9k0ndjc-m1.png"Nat%20Geo%20Wild.webp" alt="Nat Geo Wild">
+                    <div class="site-info">
+                        <h2>Nat Geo Wild</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Discovery%20HD%20World" class="site-card">
+                    <img src="https://i.ibb.co/RYsYthb/Screenshot-2024-01-08-172016.png"Discovery%20HD%20World.webp" alt="Discovery HD World">
+                    <div class="site-info">
+                        <h2>Discovery HD World</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Discovery%20Channel" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-876-j5mcolzc-v2/imageContent-876-j5mcolzc-m2.png"Discovery%20Channel.webp" alt="Discovery Channel">
+                    <div class="site-info">
+                        <h2>Discovery Channel</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Animal%20Planet%20HD%20World" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-44915-jzuyh3w0-v1/imageContent-44915-jzuyh3w0-m1.png"Animal%20Planet%20HD%20World.webp" alt="Animal Planet HD World">
+                    <div class="site-info">
+                        <h2>Animal Planet HD World</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Animal%20Planet" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-44915-jzuyh3w0-v1/imageContent-44915-jzuyh3w0-m1.png"Animal%20Planet.webp" alt="Animal Planet">
+                    <div class="site-info">
+                        <h2>Animal Planet</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Discovery%20Science" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-369-j5jo9i3s-v1/imageContent-369-j5jo9i3s-m1.png"Discovery%20Science.webp" alt="Discovery Science">
+                    <div class="site-info">
+                        <h2>Discovery Science</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=History%20TV18%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-12267-j9qx2si0-v3/imageContent-12267-j9qx2si0-m3.png"History%20TV18%20HD.webp" alt="History TV18 HD">
+                    <div class="site-info">
+                        <h2>History TV18 HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=History%20TV18" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-12267-j9qx2si0-v3/imageContent-12267-j9qx2si0-m3.png"History%20TV18.webp" alt="History TV18">
+                    <div class="site-info">
+                        <h2>History TV18</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=SONY%20BBC%20Earth%20HD" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11779-j9kx7rk0-v3/imageContent-11779-j9kx7rk0-m4.png"SONY%20BBC%20Earth%20HD.webp" alt="SONY BBC Earth HD">
+                    <div class="site-info">
+                        <h2>SONY BBC Earth HD</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=SONY%20BBC%20Earth" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11779-j9kx7rk0-v3/imageContent-11779-j9kx7rk0-m4.png"SONY%20BBC%20Earth.webp" alt="SONY BBC Earth">
+                    <div class="site-info">
+                        <h2>SONY BBC Earth</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=EPIC" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-8017-j7a4nf20-v1/imageContent-8017-j7a4nf20-m1.png"EPIC.webp" alt="EPIC">
+                    <div class="site-info">
+                        <h2>EPIC</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=DD%20Gyan%20Darshan" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-23855-jg9jt83c-v2/imageContent-23855-jg9jt83c-m8.png"DD%20Gyan%20Darshan.webp" alt="DD Gyan Darshan">
+                    <div class="site-info">
+                        <h2>DD Gyan Darshan</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Tata%20Play%20English%20in%20Telugu" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-23721-jg0fhacg-v2/imageContent-23721-jg0fhacg-m2.PNG"Tata%20Play%20English%20in%20Telugu.webp" alt="Tata Play English in Telugu">
+                    <div class="site-info">
+                        <h2>Tata Play English in Telugu</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Safari%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-11709-j9kt6bg0-v1/imageContent-11709-j9kt6bg0-m1.png"Safari%20TV.webp" alt="Safari TV">
+                    <div class="site-info">
+                        <h2>Safari TV</h2>
+                    </div>
+                </a>
+
+            <a href="player.html?channel=Daiji%20World%20TV" class="site-card">
+                    <img src="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/imageContent-73014-l8gzok74-v2/imageContent-73014-l8gzok74-m4.png"Daiji%20World%20TV.webp" alt="Daiji World TV">
+                    <div class="site-info">
+                        <h2>Daiji World TV</h2>
+                    </div>
+                </a>
+
+        </div>
+        
+        <script>
+            // Function to store the selected group in localStorage
+            function saveSelectedGroup(selectedGroup) {
+                localStorage.setItem('selectedGroup', selectedGroup);
+            }
+
+            // Function to retrieve the stored selected group from localStorage
+            function getStoredSelectedGroup() {
+                return localStorage.getItem('selectedGroup');
+            }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                // Show loading screen
+                const loadingScreen = document.getElementById('loading-screen');
+                loadingScreen.style.display = 'flex';
+
+                // Update the progress bar width
+                const loadingBar = document.getElementById('loading-bar');
+                loadingBar.style.width = '100%';
+
+                // Hide loading screen after a delay (adjust as needed)
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                }, 1000); // 1000 milliseconds = 1 second
+
+                // Check if there is a stored selected group
+                const storedSelectedGroup = getStoredSelectedGroup();
+                if (storedSelectedGroup) {
+                    // Set the selected group in the dropdown
+                    const selectElement = document.getElementById('channel-dropdown');
+                    selectElement.value = storedSelectedGroup;
+
+                    // Trigger the changeChannelGroup function with the stored value
+                    changeChannelGroup();
+                } else {
+                    // Trigger the changeChannelGroup function with the default value
+                    changeChannelGroup();
+                }
+            });
+
+            function searchChannels() {
+                const input = document.getElementById('channel-search').value.toLowerCase();
+                const allSiteCards = document.querySelectorAll('.site-card');
+
+                allSiteCards.forEach(card => {
+                    const channelName = card.querySelector('.site-info h2').innerText.toLowerCase();
+                    const displayStyle = channelName.includes(input) ? 'flex' : 'none';
+                    card.style.display = displayStyle;
+                });
+
+                // Show all genre-specific channel grids
+                const genreGrids = document.querySelectorAll('.site-grid');
+                genreGrids.forEach(grid => {
+                    grid.style.display = 'grid';
+                });
+            }
+
+            function changeChannelGroup() {
+                const selectElement = document.getElementById('channel-dropdown');
+                const selectedGroup = selectElement.options[selectElement.selectedIndex].value;
+
+                // Save the selected group to localStorage
+                saveSelectedGroup(selectedGroup);
+
+                // Hide all genre-specific channel grids
+                const genreGrids = document.querySelectorAll('.site-grid');
+                genreGrids.forEach(grid => {
+                    grid.style.display = 'none';
+                });
+
+                // Show the selected genre-specific channel grid
+                const selectedGrid = document.getElementById(`${selectedGroup}-channels`);
+                if (selectedGrid) {
+                    selectedGrid.style.display = 'grid';
+                }
+            }
+        </script>
+
+</body>
+
+</html>
